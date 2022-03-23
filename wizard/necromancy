@@ -1,0 +1,306 @@
+#!/bin/python3
+#init
+from threading import Thread
+from time import sleep
+from tkinter.ttk import Style
+import mysql.connector
+import tkinter as tk
+import os
+import prettytable
+import getpass
+from PIL import Image, ImageTk
+import json
+from sys import exit
+#this project
+import combat
+from output import table
+
+##config
+os.chdir(f'{os.path.dirname(os.path.realpath(__file__))}/..')
+try:
+    with open("wizard/config.json", "r") as file:
+        config = json.loads(file.read())
+except:
+    if input("you do not seem to have a config file, would you like to create it now? (y/n): ") == 'y':
+        os.system("touch wizard/config.json")
+        with open("wizard/config.json", "w") as file:
+            config:dict = {
+                "user":input("Please write the database user: "),
+                "passwd":getpass.getpass("Please write the password for the database: "),
+                "database":input("Please write the ip or domain of mysql database: "),
+                "port":input("Please write the port of the mysql database (default:3306): ")
+            }
+            data = json.dumps(config, indent=4)
+            file.write(data)
+    else:
+        print("this software needs a config file to run, exiting")
+        exit()
+
+HOST:str = config["database"]
+PORT:int = config["port"]
+USER:str = config["user"]
+
+#defining some objects and variables
+window = tk.Tk()
+style = Style(window)
+try:
+    style.theme_use("breeze-dark")
+except:
+    print("couldn't set theme")
+image_panel = tk.Frame(window)
+image_panel.pack(side=tk.TOP)
+necromancer = ImageTk.PhotoImage(Image.open("wizard/necromancer.png").resize((200,200)))
+necromancer_label= tk.Label(image_panel,image=necromancer)
+necromancer_label.pack(side=tk.LEFT)
+logo = ImageTk.PhotoImage(Image.open("bg.png").resize((400,200)))
+logo_label = tk.Label(image_panel, image=logo)
+logo_label.pack(side=tk.TOP)
+top_panel = tk.LabelFrame(text="Controls")
+top_panel.pack(side=tk.TOP)
+bottom_panel = tk.LabelFrame(text="Custom creature")
+bottom_panel.pack(side=tk.BOTTOM)
+object_width = 15
+backup=None
+db = None
+cursor = None
+permanent:bool = False
+
+def init():
+    #initialize a database connection
+    global db, cursor
+    try:
+        if db is not None:
+            bottom_text.config(text="Database is already initialized", fg="purple")
+            return
+        db = mysql.connector.connect(host=HOST,port=PORT,user=USER,password=config["passwd"], database="dnd")
+        cursor = db.cursor()
+        bottom_text.config(text="Successfully initialized database", fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Failed to initialize database", fg="red")
+
+def permanent_func(button:tk.Button):
+    sleep(0.05)
+    global permanent
+    if permanent:
+        permanent = False
+        button.config(fg="red", text="Non-permanent")
+    else:
+        permanent = True
+        button.config(fg="green", text="Permanent")
+
+def pretty_print(data) -> prettytable.PrettyTable:
+    #source:
+    #https://stackoverflow.com/questions/10865483/print-results-in-mysql-format-with-python
+    x = prettytable.PrettyTable(["id","creature_type", "health","hit_modifier", "damage_modifier", "permanent"])
+    for data in data:
+        x.add_row([data[0],data[1],data[2],data[3],data[4], data[5]])
+    return x
+
+
+def print_all():
+    #print all summons
+    try:
+        cursor.execute("select * from summons;")
+        results:list = cursor.fetchall()
+        print(pretty_print(results))
+        results.insert(0,["Id", "Creature_type","Health", "Hit_modifier", "Damage_modifier", "Permanent"])
+        table(results, width=object_width, title="All creatures", icon="icon.ico", master=tk.Toplevel(), scrollable="y").pack(side=tk.TOP)
+        bottom_text.config(text="Successfully printed data",fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Failed to print data, is database initialized correctly?",fg="red")
+
+def print_type():
+    #print a specific type of creature
+    try:
+        type = input("Write the type of a creature: ")
+        cursor.execute(f'select * from summons where creature_type="{type}"')
+        results:list = cursor.fetchall()
+        print(pretty_print(results))
+        results.insert(0,["Id", "Creature_type","Health", "Hit_modifier", "Damage_modifier", "Permanent"])
+        table(results, width=object_width, title=f'{type}s', icon="icon.ico", master=tk.Toplevel(), scrollable="y").pack(side=tk.TOP)
+        bottom_text.config(text="Successfully printed data", fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Failed to print data", fg="red")
+
+def get_max_ident(data) -> int:
+    if len(data)>1:
+        l = [data[i][0] if data[i-1][0]<data[i][0] else 0 for i in range(1,len(data))]
+        id = max(l)+1
+    elif len(data) == 1:
+        id = int(data[0][0])+1
+    elif len(data) == 0:
+        id = 1
+    return id
+    
+def summon():
+    try: 
+        health =int(health_text_field.get())
+        creature_type = "'"+str(creature_type_field.get())+"'"
+        hit = int(hit_modifier_field.get())
+        damage = int(damage_modifier_field.get())
+        cursor.execute("select * from summons;")
+        result = cursor.fetchall()
+        id = get_max_ident(result)
+        for i in range(int(amount_text_field.get())):
+            cursor.execute(f'insert into summons (id, creature_type, health, hit_modifier, damage_modifier, permanent) values ({id}, {creature_type}, {health}, {hit}, {damage}, {permanent});')
+            id = id+1
+        db.commit()
+        bottom_text.config(text="Summon successful",fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Summon failed, does all fields contain valid data types?", fg="red")
+    #summon something new, make sure it works with permanent summons and old ones simultaneously
+
+def zombie():
+    try:
+        cursor.execute("select * from summons;")
+        result = cursor.fetchall()
+        id = get_max_ident(result)
+        for i in range(int(amount_text_field.get())):
+            cursor.execute(f'insert into summons (id, creature_type, health, hit_modifier, damage_modifier, permanent) values ({id}, "zombie", 34, 3, 5, {permanent});')
+            id = id+1
+        db.commit()
+        bottom_text.config(text="Summon successful",fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Summon failed", fg="red")
+def skeleton():
+    try:
+        cursor.execute("select * from summons;")
+        result = cursor.fetchall()
+        id = get_max_ident(result)
+        for i in range(int(amount_text_field.get())):
+            cursor.execute(f'insert into summons (id, creature_type, health, hit_modifier, damage_modifier, permanent) values ({id}, "skeleton", 27, 4, 6, {permanent});')
+            id=id+1
+        db.commit()
+        bottom_text.config(text="Summon successful",fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Summon failed", fg="red")
+
+def flush_table():
+    #delete everything from table
+    try:
+        global backup
+        cursor.execute("select * from summons;")
+        backup = cursor.fetchall()
+        cursor.execute("delete from summons;")
+        db.commit()
+        bottom_text.config(text="Successfully flushed table", fg="green")
+    except Exception as e:
+        print(e)
+        bottom_text.config(text="Failed to flush table", fg="red")
+def restore_backup():
+    #TBD use backup global variable
+    global backup
+    if backup is not None:
+        cursor.execute("delete from summons;")
+        for data in backup:
+            cursor.execute(f'insert into summons (id, creature_type, health, hit_modifier, damage_modifier, permanent) values ({data[0]}, "{data[1]}", {data[2]}, {data[3]}, {data[4]}, {data[5]});')
+            db.commit()
+        bottom_text.config(text="successfully restored backup", fg="green")
+    else:
+        bottom_text.config(text="backup global variable is empty", fg="red")
+##TK IMPLEMENTATION
+
+###button definitions
+init_panel = tk.Frame(top_panel)
+init_panel.pack(side=tk.LEFT)
+init_button = tk.Button(init_panel,text="Init", command=init, width=object_width,fg="green")
+init_button.pack(side=tk.TOP)
+exit_button = tk.Button(init_panel, text="Exit", command=window.destroy,width=object_width,fg="red")
+exit_button.pack(side=tk.TOP)
+
+
+print_panel = tk.Frame(top_panel)
+print_panel.pack(side=tk.LEFT)
+print_all_button = tk.Button(print_panel,text="Print all", command=print_all, width=object_width)
+print_all_button.pack(side=tk.TOP)
+print_type_button = tk.Button(print_panel, text="Print type", command=print_type, width=object_width)
+print_type_button.pack(side=tk.TOP)
+flush_table_button = tk.Button(print_panel,text="Flush table", command=flush_table, width=object_width)
+flush_table_button.pack(side=tk.TOP)
+
+summon_panel = tk.Frame(top_panel)
+summon_panel.pack(side=tk.LEFT)
+summon_button = tk.Button(summon_panel, text="Summon", command=lambda:Thread(target=summon).start(), width=object_width)
+summon_button.pack(side=tk.TOP)
+zombie_button = tk.Button(summon_panel, text="Zombie", command=lambda:Thread(target=zombie).start(), width=object_width)
+zombie_button.pack(side=tk.TOP)
+skeleton_button = tk.Button(summon_panel, text="Skeleton", command=lambda:Thread(target=skeleton).start(), width=object_width)
+skeleton_button.pack(side=tk.TOP)
+
+combat_panel = tk.Frame(top_panel)
+combat_panel.pack(side=tk.LEFT)
+combat_button = tk.Button(combat_panel, text="Combat", command=lambda: combat.combat(cursor, db), width=object_width, fg="red")
+combat_button.pack(side=tk.TOP)
+permanent_button = tk.Button(combat_panel, text="Non-permanent", command=lambda: permanent_func(permanent_button), width=object_width, fg="red")
+permanent_button.pack(side=tk.TOP)
+restore_backup_button = tk.Button(combat_panel, text="Restore backup", command=restore_backup, width=object_width)
+restore_backup_button.pack(side=tk.TOP)
+
+
+
+##text fields at the bottom panel
+amount_text_field_panel = tk.Frame(bottom_panel)
+amount_text_field_text = tk.Label(amount_text_field_panel, text= "Amount")
+amount_text_field = tk.Entry(amount_text_field_panel, width=object_width)
+amount_text_field.insert(tk.END, "1")
+amount_text_field_text.pack(side=tk.TOP)
+amount_text_field.pack(side=tk.TOP)
+amount_text_field_panel.pack(side=tk.LEFT)
+
+
+health_text_field_panel = tk.Frame(bottom_panel)
+health_text_field_text = tk.Label(health_text_field_panel, text= "Health")
+health_text_field = tk.Entry(health_text_field_panel, width=object_width)
+health_text_field.insert(tk.END, "34")
+health_text_field_text.pack(side=tk.TOP)
+health_text_field.pack(side=tk.TOP)
+health_text_field_panel.pack(side=tk.LEFT)
+
+creature_text_field_panel = tk.Frame(bottom_panel)
+creature_text_field_text = tk.Label(creature_text_field_panel, text="Type")
+creature_type_field = tk.Entry(creature_text_field_panel, width=object_width)
+creature_type_field.insert(tk.END,"zombie")
+creature_text_field_text.pack(side=tk.TOP)
+creature_type_field.pack(side=tk.TOP)
+creature_text_field_panel.pack(side=tk.LEFT)
+
+hit_modifier_field_panel = tk.Frame(bottom_panel)
+hit_modifier_field_text = tk.Label(hit_modifier_field_panel, text="Hit modifier")
+hit_modifier_field = tk.Entry(hit_modifier_field_panel, width=object_width)
+hit_modifier_field.insert(tk.END, "3")
+hit_modifier_field_text.pack(side=tk.TOP)
+hit_modifier_field.pack(side=tk.TOP)
+hit_modifier_field_panel.pack(side=tk.LEFT)
+
+damage_modifier_field_panel = tk.Frame(bottom_panel)
+damage_modifier_field_text = tk.Label(damage_modifier_field_panel, text="Damage modifier")
+damage_modifier_field = tk.Entry(damage_modifier_field_panel, width=object_width)
+damage_modifier_field.insert(tk.END, "5")
+damage_modifier_field_text.pack(side=tk.TOP)
+damage_modifier_field.pack(side=tk.LEFT)
+damage_modifier_field_panel.pack(side=tk.LEFT)
+
+
+
+
+###text definitions
+bottom_text = tk.Label(window, text="Debug mode", fg="purple")
+bottom_text.pack(side=tk.BOTTOM)
+
+try:
+    init()
+except:
+    print("Init failed, are you connected to the internet?")
+window.resizable(False, False)
+window.title("Necromancy script")
+try:
+    window.iconbitmap("icon.ico")
+except:
+    print("Couldn't set icon, os is probably linux")
+window.mainloop()

@@ -1,0 +1,30 @@
+#!/bin/python
+#this script will install a mysql database for use with the necromancy script
+#run this script on the device you plan to run your database on, you would need to have forwarded port 3306 in your router if accessing remotely
+from os import system
+from sys import exit
+from getpass import getuser, getpass
+
+if __name__ == "__main__":
+    if not getuser() == "root":
+        print("Please run this install script as root, it will install an sql database, make sure to have mysql or mariadb installed")
+        exit()
+    user = input("Please type which user you would like to use for the application: ")
+    passwd = "'"+getpass("Please type the password you would like to access with: ")+"'"
+    host = "'"+input("Please type ip address if accessing remotely or localhost: ")+"'"
+    system("systemctl enable --now mysql")
+    system(f'mysql -e "create user {user} identified by {passwd};"')
+    print(f'created user {user}')
+    system(f'mysql -e "grant all on *.* to {user}@{host};"')
+    print(f'granted acces to {user}@{host}')
+    system(f'mysql -e "flush privileges;"')
+    print("flushed privileges")
+    system(f'mysql -e "create database dnd;"')
+    print("created database dnd")
+    system(f'mysql -e "use dnd; create table summons (id int not null, creature_type tinytext, health int not null, hit_modifier int not null, damage_modifier int not null, permanent boolean not null);"')
+    print("added sql table summons with columns id, creature_type, health, hit_modifier, damage_modifier and permanent")
+    if input("Would you like to clear the database(debug)?(y/n): ") == "y":
+        system("mysql -e 'use dnd; drop table summons;'")
+        system("mysql -e 'drop database dnd;'")
+        system(f'mysql -e drop user {user};')
+    print("finished running mysql install portion, go to the file 'necromancy' and replace config with your information")

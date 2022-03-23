@@ -1,0 +1,54 @@
+#!/bin/python3
+from tkinter import BOTTOM, TOP, Button, Entry, Frame, Label, Tk
+from os import chdir, path
+chdir(f'{path.dirname(path.realpath(__file__))}/..')
+obj_len = 15
+
+class label_entry(Frame):
+    switch:Button
+    current:Label
+    state:bool = False
+    master:Tk
+    width:int
+    height:int
+    content:str = ""
+    def __init__(self, master:Tk, button_text:str, height:int=obj_len, width:int=obj_len):
+        self.master = master
+        self.width = width
+        self.height = height
+        super().__init__(master)
+        self.switch = Button(master, text=button_text, command=lambda: self.switch_state(self.state), width=obj_len)
+        self.current = Label(self.master, text= self.content, width=self.width, height=self.height)
+
+
+    def switch_state(self, state):
+        if type(self.current) is Entry:
+            self.state = False
+            self.content = self.current.get()
+            self.current.destroy()
+            self.current = Label(self.master, text=self.content, width=self.width, height=self.height)
+        elif type(self.current) is Label:
+            self.state = True
+            self.current.destroy()
+            self.current = Entry(self.master, width=self.width, height=self.height)
+            self.current.insert(0, self.content)
+        self.current.pack(side=TOP)
+
+
+
+    def pack_all(self):
+        self.switch.pack(side=BOTTOM)
+        self.current.pack(side=TOP)
+
+window = Tk()
+window.resizable(False, False)
+window.title("Character sheet")
+try:
+    window.iconbitmap("icon.ico")
+except:
+    pass
+
+label = label_entry(window, "test")
+label.pack_all()
+
+window.mainloop()
