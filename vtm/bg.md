@@ -1,7 +1,16 @@
 # Vampire: The Masquerade background
-*   name:   no name yet brrrrrr
-*   from:   Rewal, Northern Poland
+*   Name:   No name yet brrrrrr
+*   From:   Rewal, Northern Poland
 
 He is addicted to crack and has difficulties sustaining his addiction outside of bigger cities in his home country so he's moved to Hamburg 3-5 years ago to find work where he's managed to learn German. He chose to go to hamburg based on his old, retired dealer's connections and during these years he's gotten to know numerous people in that environment, both sellers and users.
 
-gen 10
+*   Contact:    Dealer; a very influential person in underground society of Hamburg
+*   Allies:     Two friends in Hamburg TBD
+*   Retainer:   Dog
+
+## Potential clan
+*   Malkavian
+    -   Power object fixation?
+        -   needle?
+*   Gangrel
+*   Ravnos
