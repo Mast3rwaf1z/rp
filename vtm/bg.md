@@ -1,5 +1,5 @@
 # Vampire: The Masquerade background
-*   Name:   No name yet brrrrrr
+*   Name:   Aleksy Pękać
 *   From:   Rewal, Northern Poland
 
 He is addicted to crack and has difficulties sustaining his addiction outside of bigger cities in his home country so he's moved to Hamburg 3-5 years ago to find work where he's managed to learn German. He chose to go to hamburg based on his old, retired dealer's connections and during these years he's gotten to know numerous people in that environment, both sellers and users.
