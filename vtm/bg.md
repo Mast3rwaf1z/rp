@@ -15,7 +15,7 @@ Rewal, Northern Poland
 **Languages:**  
 Polish, German, English
 
-Character appearance placeholder:
+Character appearance placeholder idk might replace later
 
 <img src="doge-smile-smile.jpg" alt="character appearance" width="200"/>
 
