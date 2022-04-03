@@ -17,7 +17,7 @@ Polish, German, English
 
 Character appearance placeholder idk might replace later
 
-<img src="doge-smile-smile.jpg" alt="character appearance" width="200"/>
+<img src="potential character art.jpg" alt="character appearance" width="200"/>
 
 ## Background
 
