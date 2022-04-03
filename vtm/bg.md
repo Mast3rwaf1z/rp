@@ -9,6 +9,9 @@ Rewal, Northern Poland
 **Age:**        
 25
 
+**Height:**     
+1.35 meters
+
 **Languages:**  
 Polish, German, English
 
@@ -31,9 +34,6 @@ He met Lars in one of the nights in the city where they became friends and Aleks
 *   Allies:     Two friends in Hamburg TBD
 *   Retainer:   Dog
 
-## Potential clan
-*   Malkavian
-    -   Power object fixation?
-        -   needle?
-*   Gangrel
-*   Ravnos
+## blood
+*   6
+*   hungry at 7-self control
