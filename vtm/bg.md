@@ -1,12 +1,12 @@
 # Vampire: The Masquerade background
 
-**Name:**       
+**Name:**   
 Aleksy Pękać
 
-**From:**       
+**From:**   
 Rewal, Northern Poland
 
-**Age:**        
+**Age:**    
 25
 
 **Languages:**  
