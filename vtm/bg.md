@@ -35,5 +35,5 @@ He met Lars in one of the nights in the city where they became friends and Aleks
 *   Retainer:   Dog
 
 ## blood
-*   6
+*   7
 *   hungry at 7-self control
