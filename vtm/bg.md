@@ -34,6 +34,12 @@ He met Lars in one of the nights in the city where they became friends and Aleks
 *   Allies:     Two friends in Hamburg TBD
 *   Retainer:   Dog
 
+## willpower
+*   5
+
 ## blood
 *   7
 *   hungry at 7-self control
+
+## xp
+*   5
