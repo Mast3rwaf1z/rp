@@ -10,7 +10,7 @@ Rewal, Northern Poland
 25
 
 **Height:**     
-1.35 meters
+1.50 meters
 
 **Languages:**  
 Polish, German, English
