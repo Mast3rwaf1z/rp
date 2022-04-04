@@ -48,7 +48,7 @@ Aleksy can always get in contact with his boss as he was closely tied to Aleksy'
 ## Backgrounds (character sheet)
 
 *   Contact:    Boss/dealer; a very influential person in underground society of Hamburg
-*   Allies:     Two friends in Hamburg TBD
+*   Allies:     Two friends in Hamburg
 *   Retainer:   Dog, cross breed between Border Collie and ??
 
 ## willpower
