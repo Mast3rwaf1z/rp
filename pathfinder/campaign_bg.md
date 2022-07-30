@@ -7,7 +7,6 @@ Martin
 
 Some bulletpoints to create a bg from/ ideas:
 *   Pirate
-*   gender? -
 *   Previously a crewmate of a large ship, was experienced steering a ship
 *   Knows their way around a ship
 *   Relatives are not pirates themselves
@@ -16,7 +15,17 @@ Some bulletpoints to create a bg from/ ideas:
     *   some sword, possibly a cool named sword
     *   A fairly large gun, possibly for use with spellcasting
         *   Sheathed on their back
-*   
+## Relations
+*  School/where i learned magic?
+   *  Some huge city based around some wizardry academy
+   *  This city is located right up against the sea so its natural for the wizardry to lead to them also venturing out to sea
+   *  Key character in this area?
+      *  My (mentors? teachers?):
+         *  A very charismatic wizard and a strict fighter
+*  Pirate Crew?
+   *  Full crew of wizards and magi
+   *  Taught in the arts of magi by a crewmate
+   *  
 
 ## Attributes
 *   class:      Magus
