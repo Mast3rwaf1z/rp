@@ -31,3 +31,8 @@ Some bulletpoints to create a bg from/ ideas:
 *   class:      Magus
 *   Background: Sailor
 *   Ancestry:   Human Dhamphir
+
+books:
+*   Advanced player's guide
+*   Secrets of Magic
+*   core rulebook
