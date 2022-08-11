@@ -1,7 +1,6 @@
 # \<character name placeholder>
 
 ## name ideas
-Martin
 
 ## concept
 
