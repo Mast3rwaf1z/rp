@@ -57,7 +57,12 @@ Some bulletpoints to create a bg from/ ideas:
 	  During their travels \<insert character name here> was taught to use the magic they've learned to fight in hand to hand combat, thus making \<insert character name here> a magus.
    *  Motivation
       *   to free themselves from the leadership of the vampire council
-
+   *  Council of vampires in backstory:
+      *  name: 
+	  *  motivation:
+	  *  description:
+	     *  A council of powerful true vampires, their immediate goal is to expand their city.
+		 *  The city is populated by mortals but run entirely by the council of vampires
 ## Attributes
 *   class:      Magus
 *   Background: Sailor
