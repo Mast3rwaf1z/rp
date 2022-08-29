@@ -79,7 +79,7 @@ Some bulletpoints to create a bg from/ ideas:
 	  *  description:
 	     *  A council of powerful true vampires, their immediate goal is to expand their city.
 		 *  The city is populated by mortals but run entirely by the council of vampires
-## Event order
+## Summary
 * The Green Sails hears about the city of Trozis
 * The Green Sails attempts to raid Trozis
 * The Green Sails are captured by The Bloodbound council
