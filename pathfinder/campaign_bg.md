@@ -1,21 +1,21 @@
 # \<character name placeholder>
 
-## name ideas
+## names
+### name
 *   Nick Blackwood
 
-## Pirate crew name ideas
-*   The bloody bandits
-*   The Green sail(old)
+### Pirate crew name
+*   The Green sails(old)
     *	The Red/Black Sail (new)
 
-# Town name ideas
+### Town name
 *   Trozis
 
-# council name ideas
+### council name
 *   Bloodbound Council (real name)
     *   Trozis Council (cover based on town name)   
 
-# Wizard city name ideas
+### Wizard city name ideas
 *   Evokius City (Named after the academy founder)
 
 ## concept
@@ -79,6 +79,22 @@ Some bulletpoints to create a bg from/ ideas:
 	  *  description:
 	     *  A council of powerful true vampires, their immediate goal is to expand their city.
 		 *  The city is populated by mortals but run entirely by the council of vampires
+## Event order
+* The Green Sails hears about the city of Trozis
+* The Green Sails attempts to raid Trozis
+* The Green Sails are captured by The Bloodbound council
+* They are given a choice of joining the council or being hanged
+* Those who lived forms The Red/Black Sail
+* Nick Blackwood, the Human Dhamphir from Trozis joins The Red/Black Sail
+* The Red/Black Sail leaves Nick at the city of Evokius to study for two years
+* Nick Joins The Red/Black Sail again
+* The pirates clash with a crew of merchants hunting monsters, and met Venastra
+* Nick and Venastra meet again and fought
+* Nick meets her again by getting hit by a daze cantrip, and gets stopped by their captain
+* The captain of The Red/Black sail is captured along with one member of the crew, Nick. The rest of the crew has fled and is missing.
+  * Their ship was confiscated and is also missing
+  * The captain is not killed due to an interrogation about the Bloodbound council
+* Nick is scheduled to be hanged.
 ## Attributes
 *   class:      Magus
 *   Background: Sailor
