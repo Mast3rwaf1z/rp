@@ -89,6 +89,8 @@ Some bulletpoints to create a bg from/ ideas:
 * The Red/Black Sail leaves Nick at the city of Evokius to study for two years
 * Nick Joins The Red/Black Sail again
 * The pirates clash with a crew of merchants hunting monsters, and met Venastra
+* The crew clashes with another pirate crew while both were pillaging the same one
+  * Nick steals the hat of the captain of this crew
 * Nick and Venastra meet again and fought
 * Nick meets her again by getting hit by a daze cantrip, and gets stopped by their captain
 * The captain of The Red/Black sail is captured along with one member of the crew, Nick. The rest of the crew has fled and is missing.
