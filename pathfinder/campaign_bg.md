@@ -1,6 +1,22 @@
 # \<character name placeholder>
 
 ## name ideas
+*   Nick Blackwood
+
+## Pirate crew name ideas
+*   The bloody bandits
+*   The Green sail(old)
+    *	The Red/Black Sail (new)
+
+# Town name ideas
+*   Trozis
+
+# council name ideas
+*   Bloodbound Council (real name)
+    *   Trozis Council (cover based on town name)   
+
+# Wizard city name ideas
+*   Evokius City (Named after the academy founder)
 
 ## concept
 
